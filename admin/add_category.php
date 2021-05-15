@@ -5,9 +5,10 @@ include("../connection/connect.php");
 error_reporting(0);
 session_start();
 
-
+// Если нажали кнопку отправить, происходит следующее
 if(isset($_POST['submit'] ))
 {
+    // Проверка, заполенны ли поля
     if(empty($_POST['c_name']))
 		{
 			$error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -21,7 +22,7 @@ if(isset($_POST['submit'] ))
 	$check_cat= mysqli_query($db, "SELECT c_name FROM res_category where c_name = '".$_POST['c_name']."' ");
 
 	
-	
+	// Проверка, существует ли такая категория
 	if(mysqli_num_rows($check_cat) > 0)
      {
     	$error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -159,6 +160,7 @@ if(isset($_POST['submit'] ))
                                         </thead>
                                         <tbody>
 											<?php
+                                            // Вывод категорий на сайт
 												$sql="SELECT * FROM res_category order by c_id desc";
 												$query=mysqli_query($db,$sql);
 												

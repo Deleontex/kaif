@@ -5,8 +5,10 @@
 session_start();
 error_reporting(0);
 include("connection/connect.php"); 
+// Если нажали кнопку зарагестрироваться, происхлодит следующее:
 if(isset($_POST['submit'] )) 
-{
+{ 
+    // Проверка, заполнены ли все поля
      if(empty($_POST['firstname']) || 
    	    empty($_POST['lastname'])|| 
 		empty($_POST['email']) ||  
@@ -17,12 +19,13 @@ if(isset($_POST['submit'] ))
 		{
 			$message = "All fields must be Required!";
 		}
+        // Если все поля заполнены, происходит следующее:
 	else
 	{
 	$check_username= mysqli_query($db, "SELECT username FROM users where username = '".$_POST['username']."' ");
 	$check_email = mysqli_query($db, "SELECT email FROM users where email = '".$_POST['email']."' ");
 		
-
+        // Проверка всех полей, чтобы свопдали с нужными требованиями:
 	
 	if($_POST['password'] != $_POST['cpassword']){
        	$message = "Неверный пароль";
@@ -48,6 +51,7 @@ if(isset($_POST['submit'] ))
      {
     	$message = 'Email уже существует';
      }
+    //  Если все успешно, данные заносятся в БД
 	else{
 
 	$mql = "INSERT INTO users(username,f_name,l_name,email,phone,password,address) VALUES('".$_POST['username']."','".$_POST['firstname']."','".$_POST['lastname']."','".$_POST['email']."','".$_POST['phone']."','".md5($_POST['password'])."','".$_POST['address']."')";
@@ -94,6 +98,7 @@ if(isset($_POST['submit'] ))
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>

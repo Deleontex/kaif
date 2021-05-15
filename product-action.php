@@ -1,4 +1,5 @@
 <?php
+// Начало работы с продуктами, прееданными в корзину после нажатия кнопки закзазать
 if(!empty($_GET["action"])) 
 {
 $productId = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
@@ -6,6 +7,7 @@ $quantity = isset($_POST['quantity']) ? htmlspecialchars($_POST['quantity']) : '
 
 switch($_GET["action"])
  {
+	//  проработка продуктов, находящихся в корзине и последующий перенос их в закзаз
 	case "add":
 		if(!empty($quantity)) {
 								$stmt = $db->prepare("SELECT * FROM dishes where d_id= ?");
@@ -40,7 +42,7 @@ switch($_GET["action"])
 					}
 			}
 			break;
-			
+			// Проработка конпки удалить из корзины
 	case "remove":
 		if(!empty($_SESSION["cart_item"]))
 			{
@@ -51,11 +53,11 @@ switch($_GET["action"])
 				}
 			}
 			break;
-			
+			// Если корзина пустая, сессия, свзяанная с корзиной, удаляется
 	case "empty":
 			unset($_SESSION["cart_item"]);
 			break;
-			
+			// Если все успешно, переносятся в оформление заказа
 	case "check":
 			header("location:checkout.php");
 			break;

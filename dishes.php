@@ -36,6 +36,7 @@ include_once 'product-action.php';
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>
@@ -64,9 +65,12 @@ include_once 'product-action.php';
                     </ul>
                 </div>
             </div>
-			<?php $ress= mysqli_query($db,"select * from restaurant where rs_id='$_GET[res_id]'");
+			<?php 
+            // Выводятся бляюда из ресторана, у которого id равен заданному (передатся через куки файлы)
+            $ress= mysqli_query($db,"select * from restaurant where rs_id='$_GET[res_id]'");
 									     $rows=mysqli_fetch_array($ress);
 										  ?>
+                                          <!-- Информация о ресторане, который был выбран -->
             <section class="inner-page-hero bg-image" data-image-src="images/img/dish.jpeg">
                 <div class="profile">
                     <div class="container">
@@ -94,7 +98,7 @@ include_once 'product-action.php';
             <div class="container m-t-30">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                        
+                        <!-- Корзина -->
                          <div class="widget widget-cart">
                                 <div class="widget-heading">
                                     <h3 class="widget-title text-dark">
@@ -105,6 +109,7 @@ include_once 'product-action.php';
                                 <div class="order-row bg-white">
                                     <div class="widget-body">					
 	<?php
+    // начало работы с корзиной
 $item_total = 0;
 foreach ($_SESSION["cart_item"] as $item)
 {
@@ -122,6 +127,7 @@ foreach ($_SESSION["cart_item"] as $item)
                                                <input class="form-control" type="text" readonly value='<?php echo $item["quantity"]; ?>' id="example-number-input"> </div>
 									  </div>							  
 	<?php
+    // элементы, добавленные в корзину, пибавляются или отнимаются, удаляются
 $item_total += ($item["price"]*$item["quantity"]);
 }
 ?>								  						  
@@ -149,6 +155,7 @@ $item_total += ($item["price"]*$item["quantity"]);
                             </div>
                             <div class="collapse in" id="popular2">
 						<?php  
+                        // Вывод блюд из ресторана
 									$stmt = $db->prepare("select * from dishes where rs_id='$_GET[res_id]'");
 									$stmt->execute();
 									$products = $stmt->get_result();

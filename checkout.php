@@ -5,11 +5,14 @@ include("connection/connect.php");
 include_once 'product-action.php';
 error_reporting(0);
 session_start();
+// Если полльзватель не авторизован:
 if(empty($_SESSION["user_id"]))
 {
 	header('location:login.php');
 }
+// Если авторизирован:
 else{
+    // Создание закзаза
 												foreach ($_SESSION["cart_item"] as $item)
 												{
 												$item_total += ($item["price"]*$item["quantity"]);
@@ -48,6 +51,7 @@ else{
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>
@@ -82,6 +86,7 @@ else{
 										</span>
                 </div>
             <div class="container m-t-30">
+            <!-- Перенос товаров из корзины и оформление закзаза -->
 			<form action="" method="post">
                 <div class="widget clearfix">
                     <div class="widget-body">

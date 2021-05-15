@@ -4,8 +4,10 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку отправить, происходит следующее
 if(isset($_POST['submit']))   
 {
+    // Проверка, заполены ли все поля
 		if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']==''||$_POST['res_name']=='')
 		{	
 											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -15,6 +17,7 @@ if(isset($_POST['submit']))
 		}
 	else
 		{
+            // Обработка файла
 				$fname = $_FILES['file']['name'];
 								$temp = $_FILES['file']['tmp_name'];
 								$fsize = $_FILES['file']['size'];
@@ -39,7 +42,7 @@ if(isset($_POST['submit']))
 										{
 												
 												
-												
+												// Занесение данных в БД
 				                                 
 												$sql = "INSERT INTO dishes(rs_id,title,slogan,price,img) VALUE('".$_POST['res_name']."','".$_POST['d_name']."','".$_POST['about']."','".$_POST['price']."','".$fnew."')";
 												mysqli_query($db, $sql); 
@@ -185,6 +188,7 @@ if(isset($_POST['submit']))
 													<select name="res_name" class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
                                                         <option>Выберите ресторан</option>
                                                  <?php $ssql ="select * from restaurant";
+                                                //  Выбор ресторана, к котрому будет относиться блюдо
 													$res=mysqli_query($db, $ssql); 
 													while($row=mysqli_fetch_array($res))  
 													{

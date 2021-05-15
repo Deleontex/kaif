@@ -21,6 +21,7 @@ session_start();
 
 <body class="home">
     <div class="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    <!-- Шапка сайта -->
         <header id="header" class="header-scroll top-header headrom">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
@@ -31,6 +32,7 @@ session_start();
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>
@@ -48,6 +50,7 @@ session_start();
                 </div>
             </nav>
         </header>
+        <!-- Инструкция к сайту -->
         <section class="hero bg-image" data-image-src="images/img/12345.jpg">
             <div class="hero-inner">
                     <div class="steps">
@@ -82,6 +85,7 @@ session_start();
                 <div class="row">
 
 						<?php 
+                        // Выбор популярных заказов из БД
                         $query_res= mysqli_query($db,"select * from dishes LIMIT 3"); 
 									      while($r=mysqli_fetch_array($query_res))
 										  {
@@ -104,6 +108,7 @@ session_start();
                 </div>
             </div>
         </section>
+        <!-- Инструкция как заказть еду -->
         <section class="how-it-works">
             <div class="container">
                 <div class="text-xs-center">
@@ -163,6 +168,7 @@ session_start();
                                 <ul>
                                     <li><a href="#" class="selected" data-filter="*">all</a> </li>
 									<?php 
+                                    // Сортировка по категории
 									$res= mysqli_query($db,"select * from res_category");
 									      while($row=mysqli_fetch_array($res))
 										  {
@@ -178,6 +184,7 @@ session_start();
                 <div class="row">
                     <div class="restaurant-listing">
 						<?php
+                        // Вывод ресторанов, отсартированных по выбранной категории
 						$ress= mysqli_query($db,"select * from restaurant");  
 									      while($rows=mysqli_fetch_array($ress))
 										  {

@@ -4,11 +4,12 @@
 include("connection/connect.php");
 error_reporting(0);
 session_start();
-
+// Если пользователь не авторизирован, возвращает на страницу авторизации
 if(empty($_SESSION['user_id'])) 
 {
 	header('location:login.php');
 }
+// Если авторизизированЮ происходит следующее:
 else
 {
 ?>
@@ -26,6 +27,7 @@ else
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 <style type="text/css" rel="stylesheet">
+/* Стили для элементов */
 .indent-small {
   margin-left: 5px;
 }
@@ -136,6 +138,7 @@ only screen and (max-width: 760px),
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>
@@ -185,7 +188,9 @@ only screen and (max-width: 760px),
 						  </thead>
 						  <tbody>
 							<?php 
+                            // Выбор из заказов пользователей, где id пользователя в таблице закзазов совпадает с id авторизированного пользователя
 						$query_res= mysqli_query($db,"select * from users_orders where u_id='".$_SESSION['user_id']."'");
+                        // проверка, заказано что-то или нет
 												if(!mysqli_num_rows($query_res) > 0 )
 														{
 															echo '<td colspan="6"><center>Вы еще ничего не заказали. </center></td>';
@@ -203,6 +208,7 @@ only screen and (max-width: 760px),
 														  <td data-column="price">$<?php echo $row['price']; ?></td>
 														   <td data-column="status"> 
 														   <?php 
+                                                        //    Статусы заказа
 																			$status=$row['status'];
 																			if($status=="" or $status=="NULL")
 																			{

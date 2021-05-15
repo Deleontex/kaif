@@ -31,6 +31,7 @@ session_start();
                             <li class="nav-item"> <a class="nav-link active" href="index.php">Главная <span class="sr-only">(current)</span></a> </li>
                             <li class="nav-item"> <a class="nav-link active" href="restaurants.php">Рестораны <span class="sr-only"></span></a> </li>
 							<?php
+                            // В зависимости от авторизации , в шапке отображаются разные элементы
 						if(empty($_SESSION["user_id"]))
 							{
 								echo '<li class="nav-item"><a href="login.php" class="nav-link active">Войти</a> </li>
@@ -76,7 +77,9 @@ session_start();
                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-9">
                             <div class="bg-gray restaurant-entry">
                                 <div class="row">
-								<?php $ress= mysqli_query($db,"select * from restaurant");
+								<?php 
+                                // Выбор всех ресторанов
+                                $ress= mysqli_query($db,"select * from restaurant");
 									      while($rows=mysqli_fetch_array($ress))
 										  {
 													

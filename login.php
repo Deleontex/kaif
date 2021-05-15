@@ -24,6 +24,7 @@
 include("connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажимается конпока подтвердить, начинается работа кода
 if(isset($_POST['submit']))
 {
 	$username = $_POST['username'];
@@ -31,6 +32,7 @@ if(isset($_POST['submit']))
 	
 	if(!empty($_POST["submit"]))
      {
+		//  Проверка пользователя на существовнаие, верно введеные данные
 	$loginquery ="SELECT * FROM users WHERE username='$username' && password='".md5($password)."'"; 
 	$result=mysqli_query($db, $loginquery); 
 	$row=mysqli_fetch_array($result);
@@ -57,6 +59,7 @@ if(isset($_POST['submit']))
   </div>
   <div class="form">
     <h2>Войдите в ваш аккаунт</h2>
+	<!-- Сообщение об успешной или неуспешной авторищации пользователя -->
 	  <span style="color:red;"><?php echo $message; ?></span> 
    <span style="color:green;"><?php echo $success; ?></span>
     <form action="" method="post">

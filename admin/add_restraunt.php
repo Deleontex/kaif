@@ -4,9 +4,10 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку отправить, происходит следующее
 if(isset($_POST['submit']))
 {
-
+    // Проверка, заполнены ли все поля
 		if(empty($_POST['c_name'])||empty($_POST['res_name'])||$_POST['email']==''||$_POST['phone']==''||$_POST['url']==''||$_POST['o_hr']==''||$_POST['c_hr']==''||$_POST['o_days']==''||$_POST['address']=='')
 		{	
 											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -16,6 +17,7 @@ if(isset($_POST['submit']))
 		}
 	else
 		{
+            // Обработка файлов
 				$fname = $_FILES['file']['name'];
 								$temp = $_FILES['file']['tmp_name'];
 								$fsize = $_FILES['file']['size'];
@@ -34,6 +36,7 @@ if(isset($_POST['submit']))
 										}
 									else
 										{
+                                            // Занесение информации в БД
 												$res_name=$_POST['res_name'];
 				                                 
 												$sql = "INSERT INTO restaurant(c_id,title,email,phone,url,o_hr,c_hr,o_days,address,image) VALUE('".$_POST['c_name']."','".$res_name."','".$_POST['email']."','".$_POST['phone']."','".$_POST['url']."','".$_POST['o_hr']."','".$_POST['c_hr']."','".$_POST['o_days']."','".$_POST['address']."','".$fnew."')";  // store the submited data ino the database :images
@@ -46,6 +49,7 @@ if(isset($_POST['submit']))
 															</div>';
 										}
 					}
+                    // Если не заполнены поля
 					elseif($extension == '')
 					{
 						$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -131,7 +135,7 @@ if(isset($_POST['submit']))
                     <h3 class="text-primary">Панель управления</h3> </div>
             </div>
             <div class="container-fluid">
-
+                <!-- Вывод сообщения об операции -->
 									<?php  echo $error;
 									        echo $success; ?>
 									
@@ -227,6 +231,7 @@ if(isset($_POST['submit']))
                                                     <label class="control-label">Выберите категорию</label>
 													<select name="c_name" class="form-control custom-select" data-placeholder="Выберите категорию" tabindex="1">
                                                         <option>Выберите категорию</option>
+                                                        <!-- Выбор категории -->
                                                  <?php $ssql ="select * from res_category";
 													$res=mysqli_query($db, $ssql); 
 													while($row=mysqli_fetch_array($res))  

@@ -4,6 +4,7 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку изменить:
 if(isset($_POST['submit'] ))
 {
     if(empty($_POST['c_name']))
@@ -15,6 +16,7 @@ if(isset($_POST['submit'] ))
 		}
 	else
 	{
+        // Внесение изменений в бд
 	$mql = "update res_category set c_name ='$_POST[c_name]' where c_id='$_GET[cat_upd]'";
 	mysqli_query($db, $mql);
 			$success = 	'<div class="alert alert-success alert-dismissible fade show">
@@ -107,6 +109,7 @@ if(isset($_POST['submit'] ))
                             <div class="card-body">
                                 <form action='' method='post' >
                                     <div class="form-body">
+                                    <!-- Выбор категории -->
                                         <?php $ssql ="select * from res_category where c_id='$_GET[cat_upd]'";
 													$res=mysqli_query($db, $ssql); 
 													$row=mysqli_fetch_array($res);?>

@@ -26,6 +26,7 @@ session_start();
     </div>
     <div id="main-wrapper">
     <div class="left-sidebar">
+    <!-- шапка -->
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                    <ul id="sidebarnav">
@@ -93,7 +94,7 @@ session_start();
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            <!-- Вывод всех заказов -->
 											<?php
 												$sql="SELECT users.*, users_orders.* FROM users INNER JOIN users_orders ON users.u_id=users_orders.u_id ";
 												$query=mysqli_query($db,$sql);

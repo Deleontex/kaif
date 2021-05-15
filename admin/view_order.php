@@ -91,6 +91,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                                     <table id="myTable" class="table table-bordered table-striped">
                                         <tbody>
                                            <?php
+                                        //    Выовд всех закзаов из бд
 											$sql="SELECT users.*, users_orders.* FROM users INNER JOIN users_orders ON users.u_id=users_orders.u_id where o_id='".$_GET['user_upd']."'";
 												$query=mysqli_query($db,$sql);
 												$rows=mysqli_fetch_array($query);					

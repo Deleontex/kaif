@@ -4,12 +4,14 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку войти , происходит следующее:
 if(isset($_POST['submit']))
 {
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	if(!empty($_POST["submit"])) 
      {
+		//  Проверка на существование пользователя или на верность веведенных данных
 	$loginquery ="SELECT * FROM admin WHERE username='$username' && password='".md5($password)."'";
 	$result=mysqli_query($db, $loginquery);
 	$row=mysqli_fetch_array($result);
@@ -25,6 +27,7 @@ if(isset($_POST['submit']))
                                 }
 	 }
 }
+// Проверка на заполнение всех полей
 if(isset($_POST['submit1'] ))
 {
      if(empty($_POST['cr_user']) ||
@@ -37,6 +40,7 @@ if(isset($_POST['submit1'] ))
 		}
 	else
 	{
+		// Проверка на правильность введеных данных или на существание данных в бд
 	$check_username= mysqli_query($db, "SELECT username FROM admin where username = '".$_POST['cr_user']."' ");
 	$check_email = mysqli_query($db, "SELECT email FROM admin where email = '".$_POST['cr_email']."' ");
 	$check_code = mysqli_query($db, "SELECT adm_id FROM admin where code = '".$_POST['code']."' ");

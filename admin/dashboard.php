@@ -85,6 +85,7 @@ else
                                     <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
+                                <!-- вывод количества всех ресторанов -->
                                     <h2><?php $sql="select * from restaurant";
 												$result=mysqli_query($db,$sql); 
 													$rws=mysqli_num_rows($result);
@@ -101,6 +102,7 @@ else
                                     <span><i class="fa fa-cutlery f-s-40" aria-hidden="true"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
+                                <!-- вывод количества всех блюд -->
                                     <h2><?php $sql="select * from dishes";
 												$result=mysqli_query($db,$sql); 
 													$rws=mysqli_num_rows($result);
@@ -118,6 +120,7 @@ else
                                     <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
+                                <!-- вывод количества всех пользователей -->
                                     <h2><?php $sql="select * from users";
 												$result=mysqli_query($db,$sql); 
 													$rws=mysqli_num_rows($result);
@@ -135,6 +138,7 @@ else
                                     <span><i class="fa fa-shopping-cart f-s-40" aria-hidden="true"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
+                                <!-- вывод количества всех заказов -->
                                     <h2><?php $sql="select * from users_orders";
 												$result=mysqli_query($db,$sql); 
 													$rws=mysqli_num_rows($result);

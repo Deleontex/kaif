@@ -4,8 +4,10 @@
 session_start();
 error_reporting(0);
 include("../connection/connect.php");
+// Если нажали кнопку изменить:
 if(isset($_POST['submit'] ))
 {
+    // Проверка, заполнены ли все поля и на правильность заполнения их
     if(empty($_POST['uname']) ||
    	    empty($_POST['fname'])|| 
 		empty($_POST['lname']) ||  
@@ -42,6 +44,7 @@ if(isset($_POST['submit'] ))
 															</div>';
 	}
 	else{
+        // Изменение данных в бд
 	$mql = "update users set username='$_POST[uname]', f_name='$_POST[fname]', l_name='$_POST[lname]',email='$_POST[email]',phone='$_POST[phone]',password='".md5($_POST[password])."' where u_id='$_GET[user_upd]' ";
 	mysqli_query($db, $mql);
 			$success = 	'<div class="alert alert-success alert-dismissible fade show">
@@ -129,6 +132,7 @@ if(isset($_POST['submit'] ))
                                 <h4 class="m-b-0 text-white">Обновить пользователя</h4>
                             </div>
                             <div class="card-body">
+                            <!-- Вывод данных из таблицы пользователей -->
 							  <?php $ssql ="select * from users where u_id='$_GET[user_upd]'";
 													$res=mysqli_query($db, $ssql); 
 													$newrow=mysqli_fetch_array($res);?>

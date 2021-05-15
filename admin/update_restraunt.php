@@ -4,8 +4,10 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку изменить:
 if(isset($_POST['submit']))
 {
+    // Проверка, заполнены ли все поля
 		if(empty($_POST['c_name'])||empty($_POST['res_name'])||$_POST['email']==''||$_POST['phone']==''||$_POST['url']==''||$_POST['o_hr']==''||$_POST['c_hr']==''||$_POST['o_days']==''||$_POST['address']=='')
 		{	
 											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -15,6 +17,7 @@ if(isset($_POST['submit']))
 		}
 	else
 		{
+            // Обработка файлов
 				$fname = $_FILES['file']['name'];
 								$temp = $_FILES['file']['tmp_name'];
 								$fsize = $_FILES['file']['size'];
@@ -33,6 +36,7 @@ if(isset($_POST['submit']))
 										}
 									else
 										{
+                                            // Изменение данных в бд
 												$res_name=$_POST['res_name'];
 												$sql = "update restaurant set c_id='$_POST[c_name]', title='$res_name',email='$_POST[email]',phone='$_POST[phone]',url='$_POST[url]',o_hr='$_POST[o_hr]',c_hr='$_POST[c_hr]',o_days='$_POST[o_days]',address='$_POST[address]',image='$fnew' where rs_id='$_GET[res_upd]' ";  // store the submited data ino the database :images												mysqli_query($db, $sql); 
 													mysqli_query($db, $sql); 
@@ -43,6 +47,7 @@ if(isset($_POST['submit']))
 															</div>';
 										}
 					}
+                    // Если требования не соблюдены
 					elseif($extension == '')
 					{
 						$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -139,6 +144,7 @@ if(isset($_POST['submit']))
                             <div class="card-body">
                                 <form action='' method='post'  enctype="multipart/form-data">
                                     <div class="form-body">
+                                    <!-- Выбор данных из таблицы рестораны -->
                                        <?php $ssql ="select * from restaurant where rs_id='$_GET[res_upd]'";
 													$res=mysqli_query($db, $ssql); 
 													$row=mysqli_fetch_array($res);?>
@@ -224,6 +230,7 @@ if(isset($_POST['submit']))
                                                     <label class="control-label">Выберите категорию</label>
 													<select name="c_name" class="form-control custom-select" data-placeholder="Выберите категорию" tabindex="1">
                                                         <option>Выберите категорию</option>
+                                                        <!-- Выбор данных из таблицы категории -->
                                                  <?php $ssql ="select * from res_category";
 													$res=mysqli_query($db, $ssql); 
 													while($rows=mysqli_fetch_array($res))  

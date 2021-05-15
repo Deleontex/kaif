@@ -23,6 +23,7 @@ session_start();
         <svg class="circular" viewBox="25 25 50 50">
 			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
+    <!-- шапка -->
     <div id="main-wrapper">
     <div class="left-sidebar">
             <div class="scroll-sidebar">
@@ -92,6 +93,7 @@ session_start();
                                         </thead>
                                         <tbody>
 											<?php
+                                            // Вывод всех пользователей
 												$sql="SELECT * FROM users order by u_id desc";
 												$query=mysqli_query($db,$sql);
 												

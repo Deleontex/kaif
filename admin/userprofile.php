@@ -2,10 +2,12 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если пользователь не авторизирвоан, возврат на страницу авторизации
 if(strlen($_SESSION['user_id'])==0)
   { 
 header('location:login.php');
 }
+// Если пользователь авторизирован:
 else
 {
   if(isset($_POST['update']))
@@ -13,6 +15,7 @@ else
 $form_id=$_GET['form_id'];
 $status=$_POST['status'];
 $remark=$_POST['remark'];
+// Изменение ланных в таблицах ремарок и заказов
 $query=mysqli_query($db,"insert into remark(frm_id,status,remark) values('$form_id','$status','$remark')");
 $sql=mysqli_query($db,"update users_orders set status='$status' where o_id='$form_id'");
 

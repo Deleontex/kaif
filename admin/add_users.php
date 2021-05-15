@@ -4,8 +4,10 @@
 session_start();
 error_reporting(0);
 include("../connection/connect.php");
+// Если нажали кнопку отправить, происходит следующее
 if(isset($_POST['submit'] ))
 {
+    // Проверка, заполнены ли все поля
     if(empty($_POST['uname']) ||
    	    empty($_POST['fname'])|| 
 		empty($_POST['lname']) ||  
@@ -21,7 +23,7 @@ if(isset($_POST['submit'] ))
 		}
 	else
 	{
-		
+		// Проверка на существование пользователя и правильность введенныз данных
 	$check_username= mysqli_query($db, "SELECT username FROM users where username = '".$_POST['uname']."' ");
 	$check_email = mysqli_query($db, "SELECT email FROM users where email = '".$_POST['email']."' ");
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
@@ -62,7 +64,7 @@ if(isset($_POST['submit'] ))
      }
 	else{
        
-	
+	// Добавление пользователя в БД
 	$mql = "INSERT INTO users(username,f_name,l_name,email,phone,password,address) VALUES('".$_POST['uname']."','".$_POST['fname']."','".$_POST['lname']."','".$_POST['email']."','".$_POST['phone']."','".md5($_POST['password'])."','".$_POST['address']."')";
 	mysqli_query($db, $mql);
 			$success = 	'<div class="alert alert-success alert-dismissible fade show">
@@ -139,7 +141,7 @@ if(isset($_POST['submit'] ))
             <div class="container-fluid">
                      <div class="row">
 					 <div class="container-fluid">
-
+            
 									<?php  echo var_dump($_POST);
 									        echo $error;
 									        echo $success; ?>

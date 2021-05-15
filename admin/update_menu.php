@@ -4,8 +4,10 @@
 include("../connection/connect.php");
 error_reporting(0);
 session_start();
+// Если нажали кнопку изменить:
 if(isset($_POST['submit']))
 {
+    // Проверка на заполнение всех полей
 		if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']==''||$_POST['res_name']=='')
 		{	
 											$error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -15,7 +17,7 @@ if(isset($_POST['submit']))
 		}
 	else
 		{
-		
+		// обработка файлов
 				$fname = $_FILES['file']['name'];
 								$temp = $_FILES['file']['tmp_name'];
 								$fsize = $_FILES['file']['size'];
@@ -36,6 +38,7 @@ if(isset($_POST['submit']))
 										}
 									else
 										{
+                                            // Изменение данных в бд
 												$sql = "update dishes set rs_id='$_POST[res_name]',title='$_POST[d_name]',slogan='$_POST[about]',price='$_POST[price]',img='$fnew' where d_id='$_GET[menu_upd]'";  // update the submited data ino the database :images
 												mysqli_query($db, $sql); 
 												move_uploaded_file($temp, $store);
@@ -133,7 +136,7 @@ if(isset($_POST['submit']))
                             <div class="card-body">
                                 <form action='' method='post'  enctype="multipart/form-data">
                                     <div class="form-body">
-            
+                                        <!-- Выбор данных из таблицы блюда -->
                                         <?php $qml ="select * from dishes where d_id='$_GET[menu_upd]'";
 													$rest=mysqli_query($db, $qml); 
 													$roww=mysqli_fetch_array($rest);
